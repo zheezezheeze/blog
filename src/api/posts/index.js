@@ -5,9 +5,12 @@ const posts = new Router();
 
 posts.get('/', postsCrtl.list);
 posts.post('/', postsCrtl.write);
-posts.get('/:id', postsCrtl.read);
-posts.delete('/:id', postsCrtl.remove);
-posts.put('/:id', postsCrtl.replace);
-posts.patch('/:id', postsCrtl.update);
+
+const post = new Router();
+post.get('/', postsCrtl.read);
+post.delete('/', postsCrtl.remove);
+post.patch('/', postsCrtl.update);
+
+posts.use('/:id', postsCrtl.checkObjectId, post.routes());
 
 export default posts;
